@@ -30,7 +30,7 @@ const Hero = () => {
             xmlns:xlink="http://www.w3.org/1999/xlink" 
             viewBox="0 0 49.495 49.495"
             xml:space="preserve"
-            className="absolute -top-14 md:left-0 left-28 md:w-40 w-20 md:h-40 h-20 text dark:text">
+            className="absolute -top-14 md:left-0 left-5 md:w-40 w-20 md:h-40 h-20 text dark:text">
             <g>
               <g>
                 <path d="M1.434,28.084c1.527,0.188,3.644,0.847,3.644,1.587c0,0.207,0.128,0.393,0.321,0.467c0.189,0.073,0.412,0.021,0.551-0.133
@@ -65,7 +65,7 @@ const Hero = () => {
           viewBox="0 0 32 32"
           xmlns="http://www.w3.org/2000/svg" 
           xmlns:xlink="http://www.w3.org/1999/xlink"
-          className="absolute top-10 right-5 md:right-20 w-20 h-20 text dark:text rotate-45">
+          className="absolute top-10 right-5 md:right-20 md:w-20 w-14 h-20 text dark:text rotate-45">
           <g id="icomoon-ignore">
           </g>
           <path d="M32 15.467h-3.147v-6.4h-3.2v-2.667h-4.267v9.067h-10.667v-9.067h-4.267v2.667h-3.2v6.4h-3.253v1.067h3.253v6.4h3.2v2.667h4.267v-9.067h10.667v9.067h4.267v-2.667h3.2v-6.4h3.147v-1.067zM4.32 21.867v-11.733h2.133v11.733h-2.133zM9.653 24.533h-2.133v-17.067h2.133v17.067zM24.587 24.533h-2.133v-17.067h2.133v17.067zM27.787 21.867h-2.133v-11.733h2.133v11.733z" fill="currentColor">

@@ -2,7 +2,8 @@ import { useState } from 'react';
 
 const BMICalculator = () => {
   const [weight, setWeight] = useState('');
-  const [height, setHeight] = useState('');
+  const [inches, setInches] = useState('');
+  const [feet, setFeet] = useState('');
   const [bmi, setBMI] = useState(null);
   const [status, setStatus] = useState('');
   const [error, setError] = useState('');
@@ -15,11 +16,11 @@ const BMICalculator = () => {
   };
 
   const validateInputs = () => {
-    if (!weight || !height) {
+    if (!weight || !feet) {
       setError('Please fill in both weight and height');
       return false;
     }
-    if (weight <= 0 || height <= 0) {
+    if (weight <= 0 || feet <= 0) {
       setError('Weight and height must be positive numbers');
       return false;
     }
@@ -27,8 +28,12 @@ const BMICalculator = () => {
       setError('Please enter a valid weight below 500kg');
       return false;
     }
-    if (height > 3) {
-      setError('Please enter a valid height below 3m');
+    if (feet > 8) {
+      setError('Please enter a valid height below 8 feet');
+      return false;
+    }
+    if (inches && (inches < 0 || inches >= 12)) {
+      setError('Inches must be between 0 and 11');
       return false;
     }
     setError('');
@@ -40,15 +45,34 @@ const BMICalculator = () => {
     if (!validateInputs()) return;
 
     const weightNum = parseFloat(weight);
-    const heightNum = parseFloat(height);
-    const bmiValue = (weightNum / (heightNum * heightNum)).toFixed(1);
+    const totalInches = (parseFloat(feet) * 12) + (parseFloat(inches) || 0);
+    const heightInMeters = totalInches * 0.0254;
+    const bmiValue = (weightNum / (heightInMeters * heightInMeters)).toFixed(1);
     setBMI(bmiValue);
     setStatus(getBMIStatus(bmiValue));
   };
 
-  const handleInputChange = (value, setter) => {
-    if (value === '' || (value >= 0 && value.length <= 5)) {
-      setter(value);
+  const handleWeightChange = (value) => {
+    if (value === '' || (value >= 0 && value <= 500 && value.length <= 5)) {
+      setWeight(value);
+      setError('');
+      setBMI(null);
+      setStatus('');
+    }
+  };
+
+  const handleFeetChange = (value) => {
+    if (value === '' || (value >= 0 && value <= 8 && value.length <= 1)) {
+      setFeet(value);
+      setError('');
+      setBMI(null);
+      setStatus('');
+    }
+  };
+
+  const handleInchesChange = (value) => {
+    if (value === '' || (value >= 0 && value < 12 && value.length <= 2)) {
+      setInches(value);
       setError('');
       setBMI(null);
       setStatus('');
@@ -68,45 +92,55 @@ const BMICalculator = () => {
         <form onSubmit={calculateBMI} className="space-y-6">
           <div className="space-y-4">
             <div>
-              <label htmlFor="weight" className="block text-sm font-medium text dark:text mb-1">
+              {/* <label htmlFor="weight" className="block text-sm font-medium text dark:text mb-1">
                 Weight (kg)
-              </label>
+              </label> */}
               <input
                 type="number"
                 id="weight"
                 value={weight}
-                onChange={(e) => handleInputChange(e.target.value, setWeight)}
-                step="0.1"
-                min="0"
-                max="500"
-                placeholder="Enter weight in kilograms"
-                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                onChange={(e) => handleWeightChange(e.target.value, setWeight, 500)}
+                placeholder="Weight (kg)"
+                className="w-full p-2 rounded-md bg-transparent focus:outline-none border-b-2 border-c dark:border-c dark:text text"
                 aria-describedby={error ? 'bmi-error' : undefined}
               />
             </div>
 
-            <div>
-              <label htmlFor="height" className="block text-sm font-medium text dark:text">
-                Height (m)
-              </label>
-              <input
-                type="number"
-                id="height"
-                value={height}
-                onChange={(e) => handleInputChange(e.target.value, setHeight)}
-                step="0.01"
-                min="0"
-                max="3"
-                placeholder="Enter height in meters"
-                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-                aria-describedby={error ? 'bmi-error' : undefined}
-              />
+            <div className='flex gap-4'>
+              <div className='flex-1'>
+                {/* <label htmlFor="height" className="block text-sm font-medium text dark:text">
+                  Height (feet)
+                </label> */}
+                <input
+                  type="number"
+                  id="feet"
+                  value={feet}
+                  onChange={(e) => handleFeetChange(e.target.value, setFeet,8)}
+                  placeholder="Height (feet)"
+                  className="w-full p-2 rounded-md bg-transparent focus:outline-none border-b-2 border-c dark:border-c dark:text text"
+                  aria-describedby={error ? 'bmi-error' : undefined}
+                />
+              </div>
+              <div className='flex-1'>
+                {/* <label htmlFor="inches" className="block text-sm font-medium text dark:text">
+                  Inches
+                </label> */}
+                <input
+                  type="number"
+                  id="inches"
+                  value={inches}
+                  onChange={(e) => handleInchesChange(e.target.value, setInches,11)}
+                  placeholder="Inches"
+                  className="w-full p-2 rounded-md bg-transparent focus:outline-none border-b-2 border-c dark:border-c dark:text text"
+                  aria-describedby={error ? 'bmi-error' : undefined}
+                />
+              </div>
             </div>
           </div>
 
           {error && (
             <div className="bg-red-50 dark:bg-red-900/30 border-l-4 border-red-500 p-4" role="alert">
-              <p className="text-red-700 dark:text-red-300" id="bmi-error">{error}</p>
+              <p className="text dark:text" id="bmi-error">{error}</p>
             </div>
           )}
 

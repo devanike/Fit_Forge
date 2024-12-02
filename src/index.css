@@ -63,6 +63,8 @@
 .surface2 { background-color: var(--surface2);}
 /* .surface-dark { background-color: var(--surface-dark);} */
 
+.border-c { border-color: var(--text);}
+
 
 @layer utilities {
   @keyframes scroll {
