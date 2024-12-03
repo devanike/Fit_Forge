@@ -26,18 +26,18 @@ const Join = () => {
           Sign up to stay connected and informed about our latest updates!
         </p>
         <form className="w-[80%] space-y-4 mx-auto">
-          <div className='flex md:flex-row flex-col gap-4'>
+          <input
+            type="email"
+            placeholder="Email"
+            className="w-full px-4 py-2 rounded-md focus:outline-none focus:text"
+          />
+          {/* <div className='flex md:flex-row flex-col gap-4'>
             <input
               type="text"
               placeholder="Name"
               className="w-full px-4 py-2 rounded-md focus:outline-none focus:text border-none"
             />
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full px-4 py-2 rounded-md focus:outline-none focus:text"
-            />
-          </div>
+          </div> */}
           <Button name={'Join Us'} styles='text dark:text-white'/>
         </form>
       </div>
